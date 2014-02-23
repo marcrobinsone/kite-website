@@ -12,7 +12,7 @@ class Kontrol extends KDObject
 
     authentication =
       type     : "sessionID"
-      key      : KD.remote.getSessionToken()
+      key      : KD.getSessionToken()
 
     @kite = new NewKite kite, authentication
     @kite.connect()

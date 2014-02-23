@@ -1,28 +1,5 @@
 do ->
 
-  generateUID = do ->
-
-    letter = /[a-zA-Z]$/;
-    vowel = /[aeiouAEIOU]$/;
-    consonant = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]$/;
-
-    (length = 10, memorable = yes, pattern = /\w/, prefix = '')->
-
-      return prefix if prefix.length >= length
-
-      if memorable
-        pattern = if consonant.test(prefix) then vowel else consonant
-
-      n   = (Math.floor(Math.random() * 100) % 94) + 33
-      chr = String.fromCharCode(n)
-      chr = chr.toLowerCase() if memorable
-
-      unless pattern.test chr
-        return generateUID length, memorable, pattern, prefix
-
-      return generateUID length, memorable, pattern, "" + prefix + chr
-
-
   # highlight code blocks
   blocks =
     download    : """
@@ -79,8 +56,16 @@ do ->
   hljs.highlightBlock kiteMessage
 
   download = document.getElementById 'download-instructions'
-  download.innerHTML = "#{blocks.download} #{generateUID 6}"
+  download.innerHTML = "#{blocks.download} #{KD.getSessionToken()}"
   hljs.highlightBlock download
 
   # set time
   document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
+
+
+window.KDObject       = KDObject
+window.KDEventEmitter = KDEventEmitter
+window.NewKite        = NewKite
+window.Kontrol        = Kontrol
+
+

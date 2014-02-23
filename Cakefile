@@ -7,6 +7,7 @@ coffeePath = __dirname  + '/src/coffee'
 coffeeFile = coffeePath + '/main.coffee'
 cssPath    = './css/jumbotron.css'
 jsPath     = './js/main.js'
+includes   = require "#{__dirname}/includes.coffee"
 fs         = require 'fs'
 Stylus     = require 'stylus'
 Coffee     = require 'coffee-script'
@@ -19,16 +20,20 @@ timeIt     = ->
 
 task 'build', "compile css and coffee files", ->
 
-  source = fs.readFileSync stylusFile, "utf-8"
-  Stylus(source)
+  styles = fs.readFileSync stylusFile, "utf-8"
+  Stylus(styles)
     .set('compress',true)
     .set('paths', [ stylusPath ])
     .render (err, css) -> # callback is synchronous
       console.error "error with styl file:\n #{err}"  if err
       fs.writeFileSync cssPath, css, "utf8"
 
-  js = Coffee.compile fs.readFileSync coffeeFile, "utf-8"
-  fs.writeFileSync jsPath, js, "utf8"
+  source = ''
+  for file in includes
+    source += fs.readFileSync "#{__dirname}/#{file}", "utf-8"
+    source += '\n\n'
+
+  fs.writeFileSync jsPath, Coffee.compile source, "utf8"
 
   console.log "build finished."
 
