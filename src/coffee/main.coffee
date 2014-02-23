@@ -66,9 +66,7 @@ do ->
   document.addEventListener 'scroll', ->
     timer  = null
     {body} = document
-    # if body.style.backgroundPositionY?
     body.style.backgroundPositionY = "#{body.scrollTop / 2 - 100}px"
-
 
 window.KDObject       = KDObject
 window.KDEventEmitter = KDEventEmitter

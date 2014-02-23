@@ -88,7 +88,51 @@
           }
           return generateUID(length, memorable, pattern, "" + prefix + chr);
         };
-      })()
+      })(),
+      throttle: function(func, wait) {
+        var args, context, more, throttling, timeout, whenDone;
+        context = args = timeout = throttling = more = null;
+        whenDone = KD.utils.debounce((function() {
+          return more = throttling = false;
+        }), wait);
+        return function() {
+          var later;
+          context = this;
+          args = arguments;
+          later = function() {
+            timeout = null;
+            if (more) {
+              func.apply(context, args);
+            }
+            return whenDone();
+          };
+          if (!timeout) {
+            timeout = setTimeout(later, wait);
+          }
+          if (throttling) {
+            more = true;
+          } else {
+            func.apply(context, args);
+          }
+          whenDone();
+          return throttling = true;
+        };
+      },
+      debounce: function(func, wait) {
+        var timeout;
+        timeout = null;
+        return function() {
+          var args, context, later;
+          context = this;
+          args = arguments;
+          later = function() {
+            timeout = null;
+            return func.apply(context, args);
+          };
+          clearTimeout(timeout);
+          return timeout = setTimeout(later, wait);
+        };
+      }
     }
   };
 
