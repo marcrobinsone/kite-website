@@ -1,9 +1,9 @@
 # option '-o', '--output [DIR]', 'directory for compiled code'
 
 
-stylusPath = __dirname + '/stylus'
+stylusPath = __dirname  + '/src/stylus'
 stylusFile = stylusPath + '/main.styl'
-coffeePath = __dirname + '/coffee'
+coffeePath = __dirname  + '/src/coffee'
 coffeeFile = coffeePath + '/main.coffee'
 cssPath    = './css/jumbotron.css'
 jsPath     = './js/main.js'

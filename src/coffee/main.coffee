@@ -1,12 +1,35 @@
 do ->
 
+  generateUID = do ->
+
+    letter = /[a-zA-Z]$/;
+    vowel = /[aeiouAEIOU]$/;
+    consonant = /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]$/;
+
+    (length = 10, memorable = yes, pattern = /\w/, prefix = '')->
+
+      return prefix if prefix.length >= length
+
+      if memorable
+        pattern = if consonant.test(prefix) then vowel else consonant
+
+      n   = (Math.floor(Math.random() * 100) % 94) + 33
+      chr = String.fromCharCode(n)
+      chr = chr.toLowerCase() if memorable
+
+      unless pattern.test chr
+        return generateUID length, memorable, pattern, prefix
+
+      return generateUID length, memorable, pattern, "" + prefix + chr
+
+
   # highlight code blocks
   blocks =
     download    : """
       $ brew install "https://kite-cli.s3.amazonaws.com/kite.rb"
       $ kite register
       $ kite install systeminfo
-      $ kite run systeminfo $USER_ID
+      $ kite run systeminfo
       """
     kiteMessage : """
       {
@@ -56,7 +79,7 @@ do ->
   hljs.highlightBlock kiteMessage
 
   download = document.getElementById 'download-instructions'
-  download.innerHTML = blocks.download
+  download.innerHTML = "#{blocks.download} #{generateUID 6}"
   hljs.highlightBlock download
 
   # set time
