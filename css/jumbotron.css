@@ -1,0 +1,7 @@
+body{color:#444}
+.jumbotron{display:block;}
+.jumbotron p,.jumbotron h2{color:#444}
+.jumbotron article,.jumbotron aside{float:left;width:50%}
+#big-logo{display:block;width:250px;height:250px;background:transparent url("../assets/kites.250.png") scroll no-repeat 0 0}
+ul{padding-left:20px}
+li{line-height:1.8}

@@ -1,0 +1,25 @@
+{
+  "author": "Koding Team <team@koding.com>",
+  "name": "KiteWebsite",
+  "description": "Kite ecosystem's public website",
+  "version": "0.0.1",
+  "homepage": "https://github.com/koding/kite",
+  "private" : true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koding/kite-website"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "coffee-script" : "1.7.0",
+    "express"       : "3.4.8",
+    "stylus"        : "0.42.2",
+    "watch"         : "0.9.0"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "0.10.20"
+  }
+}
