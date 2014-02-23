@@ -949,7 +949,13 @@
     download = document.getElementById('download-instructions');
     download.innerHTML = "" + blocks.download + " " + (KD.getSessionToken());
     hljs.highlightBlock(download);
-    return document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear();
+    document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear();
+    return document.addEventListener('scroll', function() {
+      var body, timer;
+      timer = null;
+      body = document.body;
+      return body.style.backgroundPositionY = "" + (body.scrollTop / 2 - 100) + "px";
+    });
   })();
 
   window.KDObject = KDObject;
