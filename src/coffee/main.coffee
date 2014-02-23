@@ -62,6 +62,13 @@ do ->
   # set time
   document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
 
+  #bg animation
+  document.addEventListener 'scroll', ->
+    timer  = null
+    {body} = document
+    # if body.style.backgroundPositionY?
+    body.style.backgroundPositionY = "#{body.scrollTop / 2 - 100}px"
+
 
 window.KDObject       = KDObject
 window.KDEventEmitter = KDEventEmitter
