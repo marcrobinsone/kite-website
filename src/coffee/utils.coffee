@@ -45,6 +45,36 @@ window.KD =
 
         return generateUID length, memorable, pattern, "" + prefix + chr
 
+    throttle : (func, wait)->
+      context = args = timeout = throttling = more = null
+      whenDone = KD.utils.debounce (-> more = throttling = false), wait
+      ->
+        context = this
+        args = arguments;
+        later = ->
+          timeout = null;
+          if more then func.apply context, args
+          whenDone()
+
+        if !timeout then timeout = setTimeout later, wait
+
+        if throttling then more = yes else func.apply(context, args);
+
+        whenDone()
+        throttling = yes
+
+    debounce : (func, wait)->
+      timeout   = null
+      ->
+        context = this
+        args    = arguments
+        later   = ->
+          timeout = null
+          func.apply context, args
+
+        clearTimeout timeout
+        timeout = setTimeout later, wait
+
 KD.sessionToken = KD.utils.generateUID 6
 noop  = ->
 
