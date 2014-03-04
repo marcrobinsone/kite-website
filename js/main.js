@@ -11,7 +11,7 @@
     error: window.error = console.error.bind(console),
     config: {
       newkontrol: {
-        url: 'ws://127.0.0.1:4000/kontrol'
+        url: 'ws://kite-kontrol.koding.com'
       }
     },
     getSessionToken: function() {
