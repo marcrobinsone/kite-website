@@ -95,8 +95,19 @@ $ kite run systeminfo $USER_ID</pre>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="node_modules_koding/bongo-client/browser/bongo.js"></script>
     <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="bluebird.js"></script>
+    <script src="kontrol.js"></script>
+    <script src="main.js"></script>
+    <script>
+
+      var log = console.log.bind(console);
+      var warn = console.warn.bind(console)
+
+      var kontrol = new Kontrol({ url: 'ws://localhost:4000' });
+      var kites = kontrol.fetchKites({ username: 'devrim' });
+      kites.then(log, warn);
+
+    </script>
   </body>
 </html>

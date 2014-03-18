@@ -1,79 +1,70 @@
-do ->
-
-  # highlight code blocks
-  blocks =
-    download    : """
-      $ brew install "https://kite-cli.s3.amazonaws.com/kite.rb"
-      // or, for linux:
-      // $ wget https://kite-cli.s3.amazonaws.com/kite-latest-linux.deb
-      // $ sudo dpkg -i kite-latest-linux.deb
-      $ kite register
-      $ kite install systeminfo
-      $ kite run systeminfo
-      """
-    kiteMessage : """
-      {
-        "arguments":[
-          {
-            "authentication":{
-              "key":"KpVmfxow4IJCQ3GiRXi3PWu2OMitnDhrLWTrm0TYMqSRwvFL0GQsKiouBL889Iu9",
-              "type":"kodingKey"
-            },
-            "kite":{
-              "environment":"development",
-              "hostname":"tardis.local",
-              "id":"d1a89409-079d-43fc-44d0-999a111c0915",
-              "name":"application",
-              "port":"52649",
-              "publicIP":"",
-              "region":"localhost",
-              "username":"devrim",
-              "version":"1"
-            },
-            "withArgs":{
-              "environment":"",
-              "hostname":"",
-              "id":"",
-              "name":"mathworker",
-              "region":"",
-              "username":"devrim",
-              "version":""
-            }
+# highlight code blocks
+blocks =
+  download    : """
+    $ brew install "https://kite-cli.s3.amazonaws.com/kite.rb"
+    // or, for linux:
+    // $ wget https://kite-cli.s3.amazonaws.com/kite-latest-linux.deb
+    // $ sudo dpkg -i kite-latest-linux.deb
+    $ kite register
+    $ kite install systeminfo
+    $ kite run systeminfo
+    """
+  kiteMessage : """
+    {
+      "arguments":[
+        {
+          "authentication":{
+            "key":"KpVmfxow4IJCQ3GiRXi3PWu2OMitnDhrLWTrm0TYMqSRwvFL0GQsKiouBL889Iu9",
+            "type":"kodingKey"
           },
-          "[Function]"
-        ],
-        "callbacks":{
-          "1":[
-            "1"
-          ]
+          "kite":{
+            "environment":"development",
+            "hostname":"tardis.local",
+            "id":"d1a89409-079d-43fc-44d0-999a111c0915",
+            "name":"application",
+            "port":"52649",
+            "publicIP":"",
+            "region":"localhost",
+            "username":"devrim",
+            "version":"1"
+          },
+          "withArgs":{
+            "environment":"",
+            "hostname":"",
+            "id":"",
+            "name":"mathworker",
+            "region":"",
+            "username":"devrim",
+            "version":""
+          }
         },
-        "links":[
+        "[Function]"
+      ],
+      "callbacks":{
+        "1":[
+          "1"
+        ]
+      },
+      "links":[
 
-        ],
-        "method":"getKites"
-      }
-      """
+      ],
+      "method":"getKites"
+    }
+    """
 
-  kiteMessage = document.getElementById 'kite-message'
-  kiteMessage.innerHTML = blocks.kiteMessage
-  hljs.highlightBlock kiteMessage
+kiteMessage = document.getElementById 'kite-message'
+kiteMessage.innerHTML = blocks.kiteMessage
+hljs.highlightBlock kiteMessage
 
-  download = document.getElementById 'download-instructions'
-  download.innerHTML = "#{blocks.download} #{KD.getSessionToken()}"
-  hljs.highlightBlock download
+download = document.getElementById 'download-instructions'
+download.innerHTML = "#{blocks.download} #{'dddd'}"
+hljs.highlightBlock download
 
-  # set time
-  document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
+# set time
+document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
 
-  #bg animation
-  document.addEventListener 'scroll', ->
-    timer  = null
-    {body} = document
-    body.style.backgroundPositionY = "#{body.scrollTop / 2 - 100}px"
-
-window.KDObject       = KDObject
-window.KDEventEmitter = KDEventEmitter
-window.NewKite        = NewKite
-window.Kontrol        = Kontrol
-
-
+#bg animation
+document.addEventListener 'scroll', ->
+  timer  = null
+  {body} = document
+  body.style.backgroundPositionY = "#{body.scrollTop / 2 - 100}px"
