@@ -104,7 +104,7 @@ $ kite run systeminfo $USER_ID</pre>
       var log = console.log.bind(console);
       var warn = console.warn.bind(console)
 
-      var kontrol = new Kontrol({ url: 'ws://localhost:4000' });
+      var kontrol = new Kontrol({ url: 'ws://localhost:4000', auth: {type: "username", key: "devrim"} });
       var kites = kontrol.fetchKites({ username: 'devrim' });
       kites.then(log, warn);
 
