@@ -15,7 +15,7 @@ module.exports = (rootPath) ->
         [ ..., file ] = fullPath.split '/'
         [file, contents]
 
-  getFiles = (dir, memo) ->
+  memoizeDirContents = (dir, memo) ->
     fs.readdirAsync path.join rootPath, dir
       .map (file) ->
         fullPath = path.join rootPath, dir, file
@@ -25,16 +25,13 @@ module.exports = (rootPath) ->
       , memo
 
   memoizeContents = (memo, dirs) ->
-    Promise.all dirs.map (dir) -> getFiles dir, memo
-
-  fileContents = do (memo = {}) ->
-    memoizeContents(memo, ['js', 'coffee', 'sh', 'json']).then -> memo
+    Promise.all dirs.map (dir) -> memoizeDirContents dir, memo
 
   wrapCodeSample = (title, codeSample) ->
     [ ..., ext ] = title.split '.'
     """
     <h4>#{ title }</h4>
-    <pre class="#{ ext }"><code>
+    <pre class="sample #{ ext }"><code>
     #{ codeSample }
     </code></pre>
     """
@@ -44,9 +41,15 @@ module.exports = (rootPath) ->
 
     fileContents.then (contents) =>
       file.contents = new Buffer(
-        template text, codeSample: (demo) -> wrapCodeSample demo, contents[demo]
+        # inject the lodash template
+        template text
+        # methods exposed to the template:
+        codeSample: (demo) -> wrapCodeSample demo, contents[demo]
       )
       @push file
       next()
+
+  fileContents = do (memo = {}) ->
+    memoizeContents(memo, ['js', 'coffee', 'sh', 'json']).then -> memo
 
   through.obj(injectCodeSamples)
