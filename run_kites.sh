@@ -19,6 +19,9 @@ killall math    || true
 # delete existing kite.key
 rm -rf $HOME/.kite
 
+# clean previous kontrol data
+rm -rf /tmp/kontrol-data
+
 # generate rsa keys
 openssl genrsa -out /tmp/privateKey.pem 2048
 openssl rsa -in /tmp/privateKey.pem -pubout > /tmp/publicKey.pem
@@ -27,7 +30,7 @@ openssl rsa -in /tmp/privateKey.pem -pubout > /tmp/publicKey.pem
 go run $KITEPATH/regserv/regserv/main.go -public-key /tmp/publicKey.pem -private-key /tmp/privateKey.pem -init -username devrim -kontrol-url "ws://localhost:4000"
 
 # run essential kites
-go run kontrol/kontrol.go -public-key /tmp/publicKey.pem -private-key /tmp/privateKey.pem &
+go run kontrol/kontrol.go -public-key /tmp/publicKey.pem -private-key /tmp/privateKey.pem -data-dir /tmp/kontrol-data &
 go run $KITEPATH/proxy/proxy/main.go -public-key /tmp/publicKey.pem -private-key /tmp/privateKey.pem &
 go run $KITEPATH/regserv/regserv/main.go -public-key /tmp/publicKey.pem -private-key /tmp/privateKey.pem &
 
