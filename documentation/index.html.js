@@ -38,37 +38,13 @@
             A Kite is a micro-service communicating with other parties with Kite Protocol. Installed browser apps on koding.com talks with these Kites. For example, file tree in Develop tab talks with fs Kite.
             <h3>Demo: Connect to our kites:</h3>
 
-            
-<pre><code>
-var kontrol = new Kontrol({
-  url: 'ws://localhost:4000',
-  auth: {
-    type: "username",
-    key: prompt
-  }
-});
-
-var kites = kontrol.fetchKites({
-  username: 'devrim',
-  environment: 'unknown',
-  name: 'math',
-  version: '1.0.0'
-});
-
-</code></pre>
+            <%= codeSample('kontrol.js') %>
 
             <button>Run</button>
 
             <h3>Test for yourself</h3>
 
-            
-<pre><code>$ brew install "https://kite-cli.s3.amazonaws.com/kite.rb"
-// or, for linux:
-// $ wget https://kite-cli.s3.amazonaws.com/kite-latest-linux.deb
-// $ sudo dpkg -i kite-latest-linux.deb
-$ kite register
-$ kite install systeminfo
-$ kite run systeminfo</code></pre>
+            <%= codeSample('install.sh') %>
           </p>
         </div>
       </div>
@@ -108,47 +84,7 @@ $ kite run systeminfo</code></pre>
         <p>This is a message for geting the list of kites from <em>Kontrol:</em></p>
         <p><small>Contents of <code>withArgs</code> are specific to <code>getKites</code> method and can be totally different for any other method.</small></p>
 
-        
-<pre><code>{
-  "arguments":[
-    {
-      "authentication":{
-        "key":"KpVmfxow4IJCQ3GiRXi3PWu2OMitnDhrLWTrm0TYMqSRwvFL0GQsKiouBL889Iu9",
-        "type":"kodingKey"
-      },
-      "kite":{
-        "environment":"development",
-        "hostname":"tardis.local",
-        "id":"d1a89409-079d-43fc-44d0-999a111c0915",
-        "name":"application",
-        "port":"52649",
-        "publicIP":"",
-        "region":"localhost",
-        "username":"devrim",
-        "version":"1"
-      },
-      "withArgs":{
-        "environment":"",
-        "hostname":"",
-        "id":"",
-        "name":"mathworker",
-        "region":"",
-        "username":"devrim",
-        "version":""
-      }
-    },
-    "[Function]"
-  ],
-  "callbacks":{
-    "1":[
-      "1"
-    ]
-  },
-  "links":[
-
-  ],
-  "method":"getKites"
-}</code></pre>
+        <%= codeSample('protocol.json') %>
       </div>
 
       <hr>
