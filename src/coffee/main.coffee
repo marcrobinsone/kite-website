@@ -11,12 +11,7 @@ addRunButton = (block) ->
   block.parentNode.insertBefore button, block.nextSibling
 
 # Highlight code blocks.
-codeBlocks = [ (document.getElementsByTagName 'code')... ]
-  .map (el) ->
-    el.parentNode
-  .filter (el) ->
-    # only highlight code blocks inside of "<pre>" elements
-    el.tagName.toLowerCase() is 'pre'
+codeBlocks = [ (document.querySelectorAll 'pre > code')... ]
 
 codeBlocks.forEach (block) ->
   addRunButton block  if block.classList.contains 'js'
