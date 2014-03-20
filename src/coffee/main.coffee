@@ -1,11 +1,26 @@
+wrap = (code) ->
+  """
+  void function () { #{ code } }();
+  """
+
+addRunButton = (block) ->
+  code = block.textContent
+  button = document.createElement 'button'
+  button.textContent = 'run'
+  button.onclick = -> eval wrap code
+  block.parentNode.insertBefore button, block.nextSibling
+
 # Highlight code blocks.
-[ (document.getElementsByTagName 'code')... ]
-  .map (block) ->
-    block.parentNode
-  .filter (block) ->
+codeBlocks = [ (document.getElementsByTagName 'code')... ]
+  .map (el) ->
+    el.parentNode
+  .filter (el) ->
     # only highlight code blocks inside of "<pre>" elements
-    block.tagName.toLowerCase() is 'pre'
-  .forEach hljs.highlightBlock
+    el.tagName.toLowerCase() is 'pre'
+
+codeBlocks.forEach (block) ->
+  addRunButton block  if block.classList.contains 'js'
+  hljs.highlightBlock block
 
 # set time
 document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
@@ -16,6 +31,6 @@ document.addEventListener 'scroll', ->
   {body} = document
   body.style.backgroundPositionY = "#{body.scrollTop / 2 - 100}px"
 
-username = ->
-  localStorage.username or=
-    (prompt 'Please choose a username').replace /\//, ':'
+getUsername = ->
+  localStorage.username ?=
+    (prompt 'Please choose a username')?.replace(/\//, ':') or 'anonymous'

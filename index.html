@@ -38,16 +38,18 @@
             A Kite is a micro-service communicating with other parties with Kite Protocol. Installed browser apps on koding.com talks with these Kites. For example, file tree in Develop tab talks with fs Kite.
             <h3>Demo: Connect to our kites:</h3>
 
-            
-<pre><code>
+            <h4>kontrol.js</h4>
+<pre class="js"><code>
+// create a client for the Kontrol service registry:
 var kontrol = new Kontrol({
   url: 'ws://localhost:4000',
   auth: {
     type: "username",
-    key: prompt
+    key: getUsername()
   }
 });
 
+// query for a math kite:
 var kites = kontrol.fetchKites({
   username: 'devrim',
   environment: 'unknown',
@@ -55,20 +57,53 @@ var kites = kontrol.fetchKites({
   version: '1.0.0'
 });
 
-</code></pre>
+kites.then(function (kites) {
+  // choose a random kite:
+  var i = Math.floor(Math.random() * kites.length);
+  var math = kites[i];
+  // connect to it:
+  math.connect();
+  // get some input from the user, and cast it as a number:
+  var num = +prompt('enter your favorite number');
+  return (
+    // send a command to the kite:
+    math.tell('square', [num])
+    // when the response arrives, show it to the user:
+    .then(function (squared) {
+      alert(
+        "Your number:" + num + "\n" +
+        "Its square:" + squared + "!!!"
+      );
+    })
+    // if there is an error, show it to the user:
+    .catch(alert)
+    // clean up:
+    .finally(function () {
+      math.disconnect();
+      kontrol.disconnect();
+    })
+  );
+})
+.then(function () {
+  alert("Hooray! You ran your first RPC!");
+});
 
-            <button>Run</button>
+
+
+</code></pre>
 
             <h3>Test for yourself</h3>
 
-            
-<pre><code>$ brew install "https://kite-cli.s3.amazonaws.com/kite.rb"
+            <h4>install.sh</h4>
+<pre class="sh"><code>
+$ brew install "https://kite-cli.s3.amazonaws.com/kite.rb"
 // or, for linux:
 // $ wget https://kite-cli.s3.amazonaws.com/kite-latest-linux.deb
 // $ sudo dpkg -i kite-latest-linux.deb
 $ kite register
 $ kite install systeminfo
-$ kite run systeminfo</code></pre>
+$ kite run systeminfo
+</code></pre>
           </p>
         </div>
       </div>
@@ -108,8 +143,9 @@ $ kite run systeminfo</code></pre>
         <p>This is a message for geting the list of kites from <em>Kontrol:</em></p>
         <p><small>Contents of <code>withArgs</code> are specific to <code>getKites</code> method and can be totally different for any other method.</small></p>
 
-        
-<pre><code>{
+        <h4>protocol.json</h4>
+<pre class="json"><code>
+{
   "arguments":[
     {
       "authentication":{
@@ -148,7 +184,8 @@ $ kite run systeminfo</code></pre>
 
   ],
   "method":"getKites"
-}</code></pre>
+}
+</code></pre>
       </div>
 
       <hr>

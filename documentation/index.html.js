@@ -40,8 +40,6 @@
 
             <%= codeSample('kontrol.js') %>
 
-            <button>Run</button>
-
             <h3>Test for yourself</h3>
 
             <%= codeSample('install.sh') %>

@@ -24,28 +24,29 @@ module.exports = (rootPath) ->
         memo[file] = contents
       , memo
 
-  wrapCodeSample = (codeSample) ->
-    """
-    
-    <pre><code>#{ codeSample }</code></pre>
-    """
-
-  injectCodeSamples = (file, encoding, next) ->
-    return next PluginError 'Streaming not supported'  if file.isStream()
-
-    text = file.contents.toString encoding
-
-    fileContents.then (contents) =>
-      file.contents = new Buffer(
-        template text, codeSample: (demo) -> wrapCodeSample contents[demo]
-      )
-      @push file
-      next()
-
   memoizeContents = (memo, dirs) ->
     Promise.all dirs.map (dir) -> getFiles dir, memo
 
   fileContents = do (memo = {}) ->
     memoizeContents(memo, ['js', 'coffee', 'sh', 'json']).then -> memo
+
+  wrapCodeSample = (title, codeSample) ->
+    [ ..., ext ] = title.split '.'
+    """
+    <h4>#{ title }</h4>
+    <pre class="#{ ext }"><code>
+    #{ codeSample }
+    </code></pre>
+    """
+
+  injectCodeSamples = (file, encoding, next) ->
+    text = file.contents.toString encoding
+
+    fileContents.then (contents) =>
+      file.contents = new Buffer(
+        template text, codeSample: (demo) -> wrapCodeSample demo, contents[demo]
+      )
+      @push file
+      next()
 
   through.obj(injectCodeSamples)
