@@ -17,8 +17,8 @@ gulp.task 'build script', ->
     .pipe gulp.dest '.'
 
 gulp.task 'build html', ->
-  gulp.src 'documentation/index.html.js'
-    .pipe injectCodeSamples path.join __dirname, 'documentation'
+  gulp.src 'documentation/index.ejs.html'
+    .pipe injectCodeSamples 'documentation'
     .pipe rename 'index.html'
     .pipe gulp.dest '.'
 

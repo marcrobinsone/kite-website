@@ -12,6 +12,7 @@ addRunButton = (block) ->
 
 # Highlight code blocks.
 codeBlocks = [ (document.querySelectorAll 'pre > code')... ]
+  .map (el) -> el.parentNode
 
 codeBlocks.forEach (block) ->
   addRunButton block  if block.classList.contains 'js'

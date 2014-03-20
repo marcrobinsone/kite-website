@@ -45,5 +45,3 @@ kites.then(function (kites) {
 .then(function () {
   alert("Hooray! You ran your first RPC!");
 });
-
-
