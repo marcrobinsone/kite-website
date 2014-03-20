@@ -40,11 +40,12 @@ module.exports = (rootPath) ->
     text = file.contents.toString encoding
 
     fileContents.then (contents) =>
+      methods = 
+        codeSample: (demo) -> wrapCodeSample demo, contents[demo]
+
       file.contents = new Buffer(
         # inject the lodash template
-        template text
-        # methods exposed to the template:
-        codeSample: (demo) -> wrapCodeSample demo, contents[demo]
+        template text, methods
       )
       @push file
       next()
