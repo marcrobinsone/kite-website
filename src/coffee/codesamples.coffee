@@ -32,15 +32,16 @@ module.exports = (path) ->
     Promise.all dirs.map (dir) -> memoizeDirContents dir, memo
 
   getDefaultOptions = (options) ->
-    showTitle: options.showTitle ? yes
+    title     : options.title
+    showTitle : options.showTitle ? yes
 
-  wrapCodeSample = (title, codeSample, options = {}) ->
+  wrapCodeSample = (demo, codeSample, options = {}) ->
     options = getDefaultOptions options
-    [ ..., ext ] = title.split '.'
+    [ ..., ext ] = demo.split '.'
     """
     #{
       if options.showTitle
-      then "<h4>#{ title }</h4>"
+      then "<h4>#{ options.title ? demo }</h4>"
       else ""
     }
     <pre class="sample language-#{ ext }"><code>#{
