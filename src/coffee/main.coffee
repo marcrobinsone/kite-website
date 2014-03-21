@@ -1,6 +1,4 @@
-# FIXME: until we have a properly factored bundle, expose the Kontrol.Kite as
-#        a global:
-window.Kite = window.Kontrol.Kite
+
 
 wrap = (code) ->
   """
@@ -28,3 +26,18 @@ document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
 getUsername = ->
   localStorage.username ?=
     (prompt 'Please choose a username')?.replace(/\//, ':') or 'anonymous'
+
+# Evil globals:
+
+@getFavoriteNumber = -> +prompt 'enter your favorite number'
+
+@displayResult = (num, squared) ->
+  alert 'If you like ' + num + ',' + " you'll love " + squared + '!!!'
+
+@handleError = (err) -> alert err
+
+# FIXME: until we have a properly factored bundle, expose the Kontrol.Kite as a global.
+@Kite = Kontrol.Kite
+
+
+
