@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
-	"github.com/koding/kite"
 	"io/ioutil"
 	"log"
 	"strings"
 
+	"github.com/koding/kite"
 	"github.com/koding/kite/config"
 	"github.com/koding/kite/kontrol"
 )
