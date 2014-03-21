@@ -76,6 +76,6 @@ module.exports = (path) ->
       next()
 
   fileContents = do (memo = {}) ->
-    (memoizeContents memo, ['js', 'coffee', 'bash', 'json']).then -> memo
+    (memoizeContents memo, ['js', 'go', 'bash', 'json']).then -> memo
 
   through.obj injectCodeSamples
