@@ -1,6 +1,4 @@
-
-
-wrap = (code) ->
+wrapIife = (code) ->
   """
   void function () { #{ code } }();
   """
@@ -9,16 +7,18 @@ addRunButton = (block) ->
   code = block.textContent
   button = document.createElement 'button'
   button.textContent = 'run'
-  button.onclick = -> eval wrap code
+  button.onclick = -> eval wrapIife code
   block.parentNode.insertBefore button, block.nextSibling
 
 # Highlight code blocks.
-codeBlocks = [ (document.querySelectorAll 'pre > code')... ]
-  .map (el) -> el.parentNode
+blocks = 
+  [ (document.querySelectorAll 'pre > code')... ].map (el) -> el.parentNode
 
-codeBlocks.forEach (block) ->
-  addRunButton block  if block.classList.contains 'language-js'
+for block in blocks
   hljs.highlightBlock block
+  
+  # if it's js, offer to run it:
+  addRunButton block  if block.classList.contains 'language-js'
 
 # set time
 document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
