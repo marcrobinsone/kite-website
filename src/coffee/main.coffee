@@ -32,7 +32,7 @@ getUsername = ->
 @getFavoriteNumber = -> +prompt 'enter your favorite number'
 
 @displayResult = (num, squared) ->
-  alert 'If you like ' + num + ',' + " you'll love " + squared + '!!!'
+  alert 'If you like ' + num + ", you'll love " + squared + '!!!'
 
 @handleError = (err) -> alert err
 
