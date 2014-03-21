@@ -6,7 +6,7 @@ This is the public website for kites.
 
 # how to build it
 
-First install gulp globally (if you have not done so already):
+First install [gulp](http://gulpjs.com/) globally (if you have not done so already):
 ``` bash
 npm install gulp -g
 ```
