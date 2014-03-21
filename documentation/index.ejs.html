@@ -48,10 +48,25 @@
 
             <%= codeSample('install.bash', { title: "Install our demo kite:" }) %>
 
-            <h3>Demo: Connect to our kites:</h3>
+            <h3>Demo:</h3>
 
-            <%= codeSample('kontrol-callback.js') %>
-            <%= codeSample('kontrol-promises.js') %>
+            <p>First we need to set up Kontrol:</p>
+            <%= codeSample('kontrol.js') %>
+
+            <p>Now, let's connect to a mathworker</p>
+
+            <%= codeSample(
+              'random-kite-callback.js',
+              ['kontrol.js'],
+              { runnable: true }
+            ) %>
+            
+            <%= codeSample(
+              'random-kite-promises.js',
+              ['kontrol.js'],
+              { runnable: true }
+            ) %>
+
           </p>
         </div>
       </div>

@@ -32,10 +32,11 @@ module.exports = (path) ->
     Promise.all dirs.map (dir) -> memoizeDirContents dir, memo
 
   getDefaultOptions = (options) ->
-    title     : options.title
-    showTitle : options.showTitle ? yes
+    sampleOnly  : options.runnable ? no
+    title       : options.title
+    showTitle   : options.showTitle ? yes
 
-  wrapCodeSample = (demo, codeSample, options = {}) ->
+  wrapCodeSample = (deps, demo, codeSample, options = {}) ->
     options = getDefaultOptions options
     [ ..., ext ] = demo.split '.'
     """
@@ -44,27 +45,31 @@ module.exports = (path) ->
       then "<h4>#{ options.title ? demo }</h4>"
       else ""
     }
-    <pre class="sample language-#{ ext }"><code>#{
-      codeSample
-    }</code></pre>
+    <pre class="sample language-#{ ext } #{
+      if options.runnable
+      then 'runnable'
+      else ''
+    }">
+    <code>#{ codeSample }</code>
+    </pre>
     """
 
   injectCodeSamples = (file, encoding, next) ->
     text = file.contents.toString encoding
 
     fileContents.then (contents) =>
-
-      file.contents = new Buffer(
+      file.contents = new Buffer \
         # inject the lodash template
         template text,
-        # methods exposed to the template
-        codeSample: (demo, options) ->
-          wrapCodeSample demo, contents[demo], options
-      )
+        # method(s) exposed to the template:
+        codeSample: (demo, deps, options) ->
+          [ options, deps ] = [deps, options]  unless options?
+          wrapCodeSample deps, demo, contents[demo], options
+
       @push file
       next()
 
   fileContents = do (memo = {}) ->
-    memoizeContents(memo, ['js', 'coffee', 'bash', 'json']).then -> memo
+    (memoizeContents memo, ['js', 'coffee', 'bash', 'json']).then -> memo
 
   through.obj(injectCodeSamples)
