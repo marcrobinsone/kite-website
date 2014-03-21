@@ -32,9 +32,14 @@ module.exports = (path) ->
     Promise.all dirs.map (dir) -> memoizeDirContents dir, memo
 
   getDefaultOptions = (options) ->
-    sampleOnly  : options.runnable ? no
-    title       : options.title
-    showTitle   : options.showTitle ? yes
+    runnable  : options.runnable ? no
+    title     : options.title
+    showTitle : options.showTitle ? yes
+
+  getDepsData = (deps) ->
+    if deps.length
+    then "data-deps=\"#{ deps.join ' ' }\" "
+    else ''
 
   wrapCodeSample = (deps, demo, codeSample, options = {}) ->
     options = getDefaultOptions options
@@ -45,12 +50,12 @@ module.exports = (path) ->
       then "<h4>#{ options.title ? demo }</h4>"
       else ""
     }
-    <pre class="sample language-#{ ext } #{
+    <pre id="#{ demo }" #{ getDepsData deps }class="sample language-#{ ext }#{
       if options.runnable
-      then 'runnable'
+      then ' runnable'
       else ''
     }">
-    <code>#{ codeSample }</code>
+    <code>#{ codeSample.replace /\n$/, '' }</code>
     </pre>
     """
 
@@ -64,6 +69,7 @@ module.exports = (path) ->
         # method(s) exposed to the template:
         codeSample: (demo, deps, options) ->
           [ options, deps ] = [deps, options]  unless options?
+          deps ?= []
           wrapCodeSample deps, demo, contents[demo], options
 
       @push file
@@ -72,4 +78,4 @@ module.exports = (path) ->
   fileContents = do (memo = {}) ->
     (memoizeContents memo, ['js', 'coffee', 'bash', 'json']).then -> memo
 
-  through.obj(injectCodeSamples)
+  through.obj injectCodeSamples

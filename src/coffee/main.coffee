@@ -3,8 +3,15 @@ wrapIife = (code) ->
   void function () { #{ code } }();
   """
 
+getCode = (block) ->
+  (block.dataset?.deps ? "")
+  .split ' '
+  .map (dep) -> (document.getElementById dep)?.textContent ? ""
+  .concat block.textContent
+  .join "\n"
+
 addRunButton = (block) ->
-  code = block.textContent
+  code = getCode block
   button = document.createElement 'button'
   button.textContent = 'run'
   button.onclick = -> eval wrapIife code
@@ -17,8 +24,7 @@ blocks =
 for block in blocks
   hljs.highlightBlock block
   
-  # if it's js, offer to run it:
-  addRunButton block  if block.classList.contains 'language-js'
+  addRunButton block  if block.classList.contains 'runnable'
 
 # set time
 document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
