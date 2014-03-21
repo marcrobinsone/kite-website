@@ -9,7 +9,8 @@ injectCodeSamples = require './src/coffee/codesamples.coffee'
 gulp.task 'build style', ->
   gulp.src 'src/stylus/main.styl'
     .pipe stylus()
-    .pipe gulp.dest '.'
+    .pipe rename 'jumbotron.css'
+    .pipe gulp.dest 'css'
 
 gulp.task 'build script', ->
   gulp.src 'src/coffee/main.coffee'

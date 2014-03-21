@@ -1,3 +1,7 @@
+# FIXME: until we have a properly factored bundle, expose the Kontrol.Kite as
+#        a global:
+window.Kite = window.Kontrol.Kite
+
 wrap = (code) ->
   """
   void function () { #{ code } }();
@@ -15,17 +19,11 @@ codeBlocks = [ (document.querySelectorAll 'pre > code')... ]
   .map (el) -> el.parentNode
 
 codeBlocks.forEach (block) ->
-  addRunButton block  if block.classList.contains 'js'
+  addRunButton block  if block.classList.contains 'language-js'
   hljs.highlightBlock block
 
 # set time
 document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
-
-#bg animation
-document.addEventListener 'scroll', ->
-  timer  = null
-  {body} = document
-  body.style.backgroundPositionY = "#{body.scrollTop / 2 - 100}px"
 
 getUsername = ->
   localStorage.username ?=

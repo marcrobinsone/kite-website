@@ -1,21 +1,23 @@
 // create a client for the Kontrol service registry:
 var kontrol = new Kontrol({
-  url: 'ws://localhost:4000',
+  url: 'ws://kite-kontrol.koding.com',
   auth: {
-    type: "username",
-    key: getUsername()
+    type: 'username',
+    key: 'demo-user'
   }
 });
 
 // query for a math kite:
 var kites = kontrol.fetchKites({
-  username: 'devrim',
+  username: 'demo-user',
   environment: 'unknown',
-  name: 'math',
-  version: '1.0.0'
+  name: 'math'
 });
 
 kites.then(function (kites) {
+  if (!(kites && kites.length)) {
+    throw new Error("No kites found!");
+  }
   // choose a random kite:
   var i = Math.floor(Math.random() * kites.length);
   var math = kites[i];
@@ -29,19 +31,22 @@ kites.then(function (kites) {
     // when the response arrives, show it to the user:
     .then(function (squared) {
       alert(
-        "Your number:" + num + "\n" +
-        "Its square:" + squared + "!!!"
+        'Your number:' + num + '\n' +
+        'Its square:' + squared + '!!!'
       );
     })
     // if there is an error, show it to the user:
     .catch(alert)
-    // clean up:
+    // tear down the math worker:
     .finally(function () {
       math.disconnect();
-      kontrol.disconnect();
     })
   );
 })
+// tear down kontrol:
+.finally(function () {
+  kontrol.disconnect();
+})
 .then(function () {
-  alert("Hooray! You ran your first RPC!");
+  alert('Hooray! You ran your first RPC!');
 });
