@@ -44,6 +44,3 @@ getUsername = ->
 
 # FIXME: until we have a properly factored bundle, expose the Kontrol.Kite as a global.
 @Kite = Kontrol.Kite
-
-
-

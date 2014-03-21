@@ -1,4 +1,3 @@
-
 Promise = require 'bluebird'
 through = require 'through2'
 { join: joinPath } = require 'path'
