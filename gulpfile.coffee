@@ -15,7 +15,7 @@ gulp.task 'build style', ->
 gulp.task 'build script', ->
   gulp.src 'src/coffee/main.coffee'
     .pipe coffee()
-    .pipe gulp.dest '.'
+    .pipe gulp.dest './js'
 
 gulp.task 'build html', ->
   gulp.src 'documentation/index.ejs.html'

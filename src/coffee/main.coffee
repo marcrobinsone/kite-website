@@ -41,6 +41,3 @@ getUsername = ->
   alert 'If you like ' + num + ", you'll love " + squared + '!!!'
 
 @handleError = (err) -> alert err
-
-# FIXME: until we have a properly factored bundle, expose the Kontrol.Kite as a global.
-@Kite = Kontrol.Kite

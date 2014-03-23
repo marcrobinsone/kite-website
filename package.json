@@ -16,7 +16,7 @@
     "express": "3.4.8",
     "stylus": "0.42.2",
     "watch": "0.9.0",
-    "kite.js": "^0.0.18"
+    "kite.js": "^0.0.21"
   },
   "devDependencies": {
     "gulp": "^3.5.6",
