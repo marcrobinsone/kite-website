@@ -6,7 +6,7 @@ kontrol.fetchKites({
 }, function (err, kites) {
   if (err) {
     handleError(err);
-    teardown(kontrol);
+    kontrol.disconnect();
     return;
   }
   // choose a random kite:
@@ -19,16 +19,10 @@ kontrol.fetchKites({
   math.tell('square', [num], function (err, squared) {
     if (err) {
       handleError(err);
-      teardown(math, kontrol);
+      Kite.disconnect(math, kontrol);
       return;
     }
     displayResult(num, squared);
-    teardown(math, kontrol);
+    Kite.disconnect(math, kontrol);
   });
 });
-
-function teardown() {
-  for (var i = 0, len = arguments.length; i < len; i ++) {
-    arguments[i].disconnect();
-  }
-}
