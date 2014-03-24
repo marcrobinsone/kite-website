@@ -1,38 +1,94 @@
 @import fn
 
-textColor = #444
+textColor = #595959
 
 body
-  color         textColor
+  color               textColor
+  font-family         'Asap', sans-serif
+  font-weight         400
+  background          #fff
+  font-size           16px
+
+main
+  max-width           960px
+  padding             110px 0 110px 166px
+  margin              0 auto
+  borderBox()
 
 h1, h2, h3, h4, h5, h6
-  font-family   'Exo 2', sans-serif
-  font-weight   200
+  font-weight         700
+  margin              0
+  padding             0
 
-.jumbotron
-  margin-bottom 0
-  bg            color transparent
+h1
+  font-size           1.6em
+h2
+  font-size           1.4em
+h3
+  font-size           1.2em
+  margin              62px 0 0 0
+h4
+  font-size           1em
+h5
+  font-size           .8em
+h6
+  font-size           .6em
 
-  p
-    font-weight 200
-    font-size   16px
-
-  p
-  h2
-    color       textColor
-
-  pre
-    bg          color rgba(255,255,255,.5)
-    border      1px solid #B1D0D1
-    max-width   600px
-
-
-#big-logo
-  display       block
-  size          250px 250px
+pre
+  overflow            auto
+  rounded             6px
+  padding             1.5em !important
+  borderBox()
 
 ul
-  padding-left  20px
+  list-style          none
+  padding             0
+  margin              0
 
-li
-  line-height   1.8
+  li
+    padding           0 0 4px 20px
+    text-indent       -10px
+
+    &:before
+      content         "•"
+      color           #dedede
+      display         inline-block
+
+p
+  line-height         1.6em
+  clear               both
+
+section
+  &:nth-child(1)
+    h1
+      font-size       75px
+      color           #3e4145
+      line-height     63px
+      fl()
+
+    h2
+      font-size       24px
+      color           #404040
+      line-height     75px
+      font-weight     400
+      font-style      italic
+      fl()
+
+      &:before
+        content       "-"
+        display       inline-block
+        padding       0 14px 0 20px
+
+hr
+  background          #f2f2f2
+  height              1px
+  border              none
+  margin              42px 0
+
+footer
+  color               #acacac
+
+  a
+    color             inherit
+    noTextDeco()
+
