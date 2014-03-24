@@ -10,17 +10,17 @@ gulp.task 'build style', ->
   gulp.src 'src/stylus/main.styl'
     .pipe stylus()
     .pipe rename 'main.css'
-    .pipe gulp.dest 'css'
+    .pipe gulp.dest 'static/css'
 
 gulp.task 'build script', ->
   gulp.src 'src/coffee/main.coffee'
     .pipe coffee()
-    .pipe gulp.dest './js'
+    .pipe gulp.dest 'static/js'
 
 gulp.task 'build html', ->
   gulp.src 'documentation/index.ejs.html'
     .pipe injectCodeSamples 'documentation'
     .pipe rename 'index.html'
-    .pipe gulp.dest '.'
+    .pipe gulp.dest 'static'
 
 gulp.task 'default', ['build style', 'build script', 'build html']
