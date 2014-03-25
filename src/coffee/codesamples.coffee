@@ -47,7 +47,7 @@ module.exports = (path) ->
     #{
       if options.showTitle
       then "<h4>#{ options.title ? demo }</h4>"
-      else ""
+      else ''
     }
     <pre id="#{ demo }" #{ getDepsData deps }class="sample language-#{ ext }#{
       if options.runnable
@@ -61,7 +61,7 @@ module.exports = (path) ->
   injectCodeSamples = (file, encoding, next) ->
     text = file.contents.toString encoding
 
-    fileContents.then (contents) =>
+    codeSamples.then (samples) =>
       file.contents = new Buffer \
         # inject the lodash template
         template text,
@@ -69,12 +69,12 @@ module.exports = (path) ->
         codeSample: (demo, deps, options) ->
           [ options, deps ] = [deps, options]  unless options?
           deps ?= []
-          wrapCodeSample deps, demo, contents[demo] ? "404: #{ demo }", options
+          wrapCodeSample deps, demo, samples[demo] ? "404: #{ demo }", options
 
       @push file
       next()
 
-  fileContents = do (memo = {}) ->
+  codeSamples = do (memo = {}) ->
     (memoizeContents memo, ['js', 'go', 'bash', 'json']).then -> memo
 
   through.obj injectCodeSamples
