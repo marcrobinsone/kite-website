@@ -30,10 +30,6 @@ for block in blocks
 # set time
 document.getElementsByTagName('time')[0].innerHTML = (new Date).getFullYear()
 
-getUsername = ->
-  localStorage.username ?=
-    (prompt 'Please choose a username')?.replace(/\//, ':') or 'anonymous'
-
 # Evil globals:
 
 @getFavoriteNumber = ->
@@ -42,6 +38,6 @@ getUsername = ->
   fav
 
 @displayResult = (num, squared) ->
-  alert 'If you like ' + num + ", you'll love " + squared + '!!!'
+  alert "If you like #{ num }, you'll love #{ squared }!!!"
 
 @handleError = (err) -> alert err
