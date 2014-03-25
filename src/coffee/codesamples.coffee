@@ -69,7 +69,7 @@ module.exports = (path) ->
         codeSample: (demo, deps, options) ->
           [ options, deps ] = [deps, options]  unless options?
           deps ?= []
-          wrapCodeSample deps, demo, contents[demo], options
+          wrapCodeSample deps, demo, contents[demo] ? "404: #{ demo }", options
 
       @push file
       next()
