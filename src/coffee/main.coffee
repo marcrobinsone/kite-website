@@ -35,7 +35,10 @@ getUsername = ->
 
 # Evil globals:
 
-@getFavoriteNumber = -> +prompt 'enter your favorite number'
+@getFavoriteNumber = ->
+  fav = +prompt 'enter your favorite number'
+  alert "That's not a number!"  unless fav is fav
+  fav
 
 @displayResult = (num, squared) ->
   alert 'If you like ' + num + ", you'll love " + squared + '!!!'
