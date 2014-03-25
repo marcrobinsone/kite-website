@@ -11,10 +11,10 @@ getCode = (block) ->
   .join "\n"
 
 addRunButton = (block) ->
-  code = getCode block
+  code = wrapIife getCode block
   button = document.createElement 'button'
   button.textContent = 'run'
-  button.onclick = -> eval wrapIife code
+  button.onclick = -> eval code
   block.parentNode.insertBefore button, block.nextSibling
 
 # Highlight code blocks.
